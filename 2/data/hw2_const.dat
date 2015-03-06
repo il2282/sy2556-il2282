@@ -1,0 +1,7 @@
+borrow_limit 100
+borrow_rate 3
+cpaper_term 3
+cpaper_rate 3
+excess_rate 1
+
+END

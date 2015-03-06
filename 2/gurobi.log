@@ -1,0 +1,187 @@
+
+Gurobi 6.0.0 (linux64) logging started Thu Mar  5 23:37:12 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 6 rows, 14 columns, 27 nonzeros
+Optimize a model with 6 rows, 14 columns and 27 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [5e+01, 2e+02]
+Presolve removed 1 rows and 1 columns
+Presolve time: 0.00s
+
+Solved in 0 iterations and 0.00 seconds
+Infeasible or unbounded model
+
+Gurobi 6.0.0 (linux64) logging started Thu Mar  5 23:37:14 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 6 rows, 14 columns, 27 nonzeros
+Optimize a model with 6 rows, 14 columns and 27 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [5e+01, 2e+02]
+Presolve removed 1 rows and 1 columns
+Presolve time: 0.00s
+
+Solved in 0 iterations and 0.00 seconds
+Infeasible or unbounded model
+
+Gurobi 6.0.0 (linux64) logging started Thu Mar  5 23:39:53 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 6 rows, 14 columns, 27 nonzeros
+Optimize a model with 6 rows, 14 columns and 27 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [5e+01, 2e+02]
+Presolve removed 1 rows and 1 columns
+Presolve time: 0.00s
+
+Solved in 0 iterations and 0.00 seconds
+Infeasible or unbounded model
+
+Gurobi 6.0.0 (linux64) logging started Thu Mar  5 23:39:56 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 6 rows, 14 columns, 27 nonzeros
+Optimize a model with 6 rows, 14 columns and 27 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [5e+01, 2e+02]
+Presolve removed 1 rows and 1 columns
+Presolve time: 0.00s
+
+Solved in 0 iterations and 0.00 seconds
+Infeasible or unbounded model
+
+Gurobi 6.0.0 (linux64) logging started Fri Mar  6 00:02:46 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 6 rows, 14 columns, 27 nonzeros
+Optimize a model with 6 rows, 14 columns and 27 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [5e+01, 2e+02]
+Presolve removed 1 rows and 1 columns
+Presolve time: 0.00s
+
+Solved in 0 iterations and 0.00 seconds
+Infeasible or unbounded model
+
+Gurobi 6.0.0 (linux64) logging started Fri Mar  6 00:02:49 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 6 rows, 14 columns, 27 nonzeros
+Optimize a model with 6 rows, 14 columns and 27 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [5e+01, 2e+02]
+Presolve removed 1 rows and 1 columns
+Presolve time: 0.00s
+
+Solved in 0 iterations and 0.00 seconds
+Infeasible or unbounded model
+
+Gurobi 6.0.0 (linux64) logging started Fri Mar  6 00:09:46 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 6 rows, 14 columns, 27 nonzeros
+Optimize a model with 6 rows, 14 columns and 27 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [5e+01, 2e+02]
+Presolve removed 1 rows and 1 columns
+Presolve time: 0.00s
+
+Solved in 0 iterations and 0.00 seconds
+Infeasible or unbounded model
+
+Gurobi 6.0.0 (linux64) logging started Fri Mar  6 00:12:28 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 6 rows, 14 columns, 27 nonzeros
+Optimize a model with 6 rows, 14 columns and 27 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [5e+01, 2e+02]
+Presolve removed 1 rows and 1 columns
+Presolve time: 0.00s
+
+Solved in 0 iterations and 0.00 seconds
+Infeasible or unbounded model
+
+Gurobi 6.0.0 (linux64) logging started Fri Mar  6 00:12:30 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 6 rows, 14 columns, 27 nonzeros
+Optimize a model with 6 rows, 14 columns and 27 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [5e+01, 2e+02]
+Presolve removed 1 rows and 1 columns
+Presolve time: 0.00s
+
+Solved in 0 iterations and 0.00 seconds
+Infeasible or unbounded model
+
+Gurobi 6.0.0 (linux64) logging started Fri Mar  6 00:13:19 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 6 rows, 14 columns, 27 nonzeros
+Optimize a model with 6 rows, 14 columns and 27 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [5e+01, 2e+02]
+Presolve removed 1 rows and 1 columns
+Presolve time: 0.00s
+
+Solved in 0 iterations and 0.00 seconds
+Infeasible or unbounded model
+
+Gurobi 6.0.0 (linux64) logging started Fri Mar  6 00:13:21 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 6 rows, 14 columns, 27 nonzeros
+Optimize a model with 6 rows, 14 columns and 27 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [5e+01, 2e+02]
+Presolve removed 1 rows and 1 columns
+Presolve time: 0.00s
+
+Solved in 0 iterations and 0.00 seconds
+Infeasible or unbounded model

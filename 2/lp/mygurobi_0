@@ -1,0 +1,5 @@
+Solving ./lp/cash_0.lp
+variables = 14
+constraints = 6
+->LP infeasible or unbounded
+bye.

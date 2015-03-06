@@ -1,0 +1,6 @@
+potential issues to be resolved:
+
+1. variable input (ir, months, etc) as in hw1
+2. if not feasible... how to treat it
+3. errorcode #...
+4. rand() --> srand(time(NULL))
