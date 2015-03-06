@@ -13,10 +13,10 @@ EXECN = e_nerd
 
 all: clean $(TGT1) $(TGT2)
 
-$(TGT1):
+$(TGT1): clean1
 	$(CC) $(CFLAGS) ./$(SRC)/$(TGT1).c ./$(SRC)/$(UTIL).c $(LIBS) -o $(TGT1)
 
-$(TGT2): 
+$(TGT2): clean2
 	$(CC) $(CFLAGS) ./$(SRC)/$(TGT2).c ./$(SRC)/$(TGT3).c ./$(SRC)/$(UTIL).c $(LIBS) -o $(TGT2)
 
 $(EXECM):
@@ -25,6 +25,10 @@ $(EXECM):
 $(EXECN):
 	./$(TGT2) $(N)
 
-clean:
+clean: clean1 clean2
+
+clean1:
 	$(RM) $(TGT1)
+	
+clean2:
 	$(RM) $(TGT2)
