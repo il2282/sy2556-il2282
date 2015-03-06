@@ -1,0 +1,6 @@
+complie: type 'make' in the shell for both master and nerd
+- please refer to makefile for details.
+
+execution: 
+- type 'make e_master N=(number of nerds)' to run master
+- type 'make e_nerd N=(nerdID)' to run nerd
