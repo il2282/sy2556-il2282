@@ -23,7 +23,7 @@ log.write('Solving %s\n' % sys.argv[1])
 log.write("variables = " + str(model.NumVars) + "\n")
 log.write("constraints = " + str(model.NumConstrs) + "\n")
 
-if model.status == GRB.status.INF_OR_UNBD:
+if model.status in [GRB.status.INF_OR_UNBD, GRB.status.INFEASIBLE, GRB.status.UNBOUNDED]:
     print "->LP infeasible or unbounded"
     log.write('->LP infeasible or unbounded\n')
 else:

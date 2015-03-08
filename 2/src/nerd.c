@@ -4,7 +4,7 @@
 
 #include "utilities.h"
 
-int processfile(char *constfilename, char *filename, double *pvalue, int nerdID);
+int processfile(char *constfilename, char *filename, char *pstatus, double *pvalue, int nerdID);
 
 int main(int argc, char **argv)
 {
@@ -13,6 +13,7 @@ int main(int argc, char **argv)
   char constfilename[100];
   char masterfilename[100];
   char nerdfilename[100];
+  char finalstatus[20];
   double finalcashflow;
   FILE *out, *in;
 
@@ -45,10 +46,10 @@ int main(int argc, char **argv)
       
 
       /** now do the work, baby **/
-      runcode = processfile(constfilename, buffer, &finalcashflow, ID);
+      runcode = processfile(constfilename, buffer, finalstatus, &finalcashflow, ID);
       if(runcode) goto BACK;
 
-      sprintf(buffer, "%g\n", finalcashflow);
+      sprintf(buffer, "%s\n%g\n", finalstatus, finalcashflow);
       
       /** write it to file **/
       out = fopen(nerdfilename, "w");

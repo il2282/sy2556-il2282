@@ -1,32 +1,83 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 #include "utilities.h"
 
+int readworkfile(char* workfile, char** wordlist, int* N);
+int commandnerd(int N, int numnerds, char* wordlist, char* constfilename);
 int sendword(char *destination, char* constfilename, char *word, int ID);
 
 int main(int argc, char **argv)
 {
-  int runcode = 0, N, j, numnerds, initialN, numworking, workindex;
-  char buffer[100];
-  FILE *out, *in;
-  char **wordlist;
-  char **masterfilename = NULL;
-  char **nerdfilename = NULL;
-  char *busy = NULL;
+  int runcode = 0, N, numnerds;
+  char *wordlist = NULL;
 
   if(argc != 4){
-    printf("master: usage is master workfile constfile numnerds\n"); runcode = 1; goto BACK;
+    printf("master: usage is master workfile constfile numnerds outputfile\n"); runcode = 1; goto BACK;
   }
 
   numnerds = atoi(argv[3]);
+
+  /* read workfile */
+  runcode = readworkfile(argv[1], &wordlist, &N);
+  if (runcode) goto BACK;
+
+  /* command nerd */
+  runcode = commandnerd(N, numnerds, wordlist, argv[2]);
+  if (runcode) goto BACK;
+
+ BACK:
+  return runcode;
+}
+
+
+int readworkfile(char* workfile, char** wordlist, int* N)
+{
+  FILE *in;
+  char buffer[100];
+  int readcode = 0;
+
+  in = fopen(workfile, "r");
+  if(!in){
+    printf("master: cannot open workfile %s\n", workfile); readcode = 3; goto BACK;
+  }
+  fscanf(in,"%s", buffer);
+  *N = atoi(buffer);
+  printf("master: N = %d\n", *N);
+  fscanf(in,"%s", buffer); /* 'simulations' to be ignored */
+
+  fscanf(in,"%s", buffer);
+  *wordlist=strdup(buffer);
+
+  fscanf(in,"%s", buffer);
+  fclose(in);
+  if(strcmp(buffer, "END")!=0){
+    printf("master: wrong workfile format\n"); readcode = 4; goto BACK; /*TODO: Warning?*/
+  }
+  BACK:
+   return readcode;
+}
+
+
+int commandnerd(int N, int numnerds, char* wordlist, char* constfilename)
+{
+  int commandcode = 0, initialN, numworking, workindex;
+  int feasibleN = 0;
+  double optval = 0, sum = 0, squredsum = 0, avg = 0, sd = 0;
+  char **masterfilename = NULL;
+  char **nerdfilename = NULL;
+  char *busy = NULL;
+  char buffer[100];
+  FILE *in;
+  int j;
 
   masterfilename = (char **)calloc(numnerds, sizeof(char *));
   nerdfilename = (char **)calloc(numnerds, sizeof(char *));
   busy = (char *)calloc(numnerds, sizeof(char));
   if(!masterfilename || !nerdfilename || !busy){
-    printf("no memory\n"); runcode = 2; goto BACK;
+    printf("no memory\n"); commandcode = 2; goto BACK;
   }
   for(j = 0; j < numnerds; j++){
     masterfilename[j] = (char *)calloc(100, sizeof(char));
@@ -40,44 +91,13 @@ int main(int argc, char **argv)
       erasefile(nerdfilename[j]);
 
   }
-
-
-  /** read workfile -- crude **/
-  in = fopen(argv[1], "r");
-  if(!in){
-    printf("master: cannot open workfile %s\n", argv[1]); runcode = 3; goto BACK;
-  }
-  fscanf(in,"%s", buffer);
-  N = atoi(buffer);
-  printf("master: N = %d\n", N);
-  fscanf(in,"%s", buffer); /* 'simulations' to be ignored */
-
-  wordlist = (char **)calloc(N, sizeof(char *));
-  fscanf(in, "%s", buffer);
-  for(j = 0; j < N; j++){
-    /*if(EOF == fscanf(in,"%s", buffer)){
-      printf("master: reached end of file after reading %d workds\n", j-1);
-      printf("master: so resetting N to %d\n", j-1);
-      N = j - 1;
-      break;
-    }*/
-    wordlist[j] = strdup(buffer);
-  }
   
-  fscanf(in, "%s", buffer);
-  fclose(in);
-
-  if(strcmp(buffer, "END")!=0){
-    printf("master: wrong workfile format\n"); runcode = 4; goto BACK; /*TODO: Warning?*/
-  }
-
   initialN = (N < numnerds) ? N : numnerds;
 
   /** launch initial batch **/
   for(workindex = 0; workindex < initialN; workindex++){
-
-    runcode = sendword(masterfilename[workindex], argv[2], wordlist[workindex], workindex);
-    if(runcode) goto BACK;
+    commandcode = sendword(masterfilename[workindex], constfilename, wordlist, workindex);
+    if(commandcode) goto BACK;
     busy[workindex] = 1;
   }
   numworking = initialN;
@@ -91,34 +111,42 @@ int main(int argc, char **argv)
 
     for(j = 0; j < numnerds; j++){
       if(busy[j]){
-	/** check to see if done **/
+  /** check to see if done **/
 
-      	if (does_it_exist(nerdfilename[j])){
-      	  in = fopen(nerdfilename[j], "r");
-      	  if(!in){
-      	    printf("master: cannot open nerdfile. Stop\n"); runcode = 1; goto BACK;
-      	  }
-      	  fscanf(in,"%s",buffer);
-      	  fclose(in);
-      	  printf(" master:  nerd %d says: '%s'\n", j, buffer);
-      	  erasefile(nerdfilename[j]);
-      	  busy[j] = 0;
-      	  --numworking;
-      	  printf("master: now %d nerds working workindex %d\n", numworking,
-      		 workindex);
+        if (does_it_exist(nerdfilename[j])){
+          in = fopen(nerdfilename[j], "r");
+          if(!in){
+            printf("master: cannot open nerdfile. Stop\n"); commandcode = 1; goto BACK;
+          }
+          fscanf(in,"%s",buffer);
 
-      	  if(workindex < N){
-      	    runcode = sendword(masterfilename[j], argv[2], wordlist[workindex], j);
-      	    if(runcode) goto BACK;
-      	    busy[j] = 1; /** nerd j is busy again **/
-      	    ++numworking;
+          if(strcmp(buffer,"feasible") == 0){
+			fscanf(in,"%s",buffer);
+          	optval = atof(buffer);
+          	++feasibleN;
+          	sum += optval;
+          	squredsum += optval*optval;
+          }
+          fclose(in);
+          printf(" master:  nerd %d says: '%s'\n", j, buffer);
+          erasefile(nerdfilename[j]);
+          busy[j] = 0;
+          --numworking;
+          printf("master: now %d nerds working workindex %d\n", numworking,
+           workindex);
 
-      	    ++workindex;  /** increment index of work done or being done**/
-      	  }
-      	}
-      	else
-      	  printf("master: nerd %d busy; workindex %d numworking %d\n", j,
-      		 workindex, numworking);
+          if(workindex < N){
+            commandcode = sendword(masterfilename[j], constfilename, wordlist, j);
+            if(commandcode) goto BACK;
+            busy[j] = 1; /** nerd j is busy again **/
+            ++numworking;
+
+            ++workindex;  /** increment index of work done or being done**/
+          }
+        }
+        else
+          printf("master: nerd %d busy; workindex %d numworking %d\n", j,
+           workindex, numworking);
       }
 
     }
@@ -127,15 +155,22 @@ int main(int argc, char **argv)
 
   /** now tell all nerds bye bye **/
   for(j = 0; j < numnerds; j++){
-    runcode = sendword(masterfilename[j], "x", "x", j);
-    if(runcode) goto BACK;
+    commandcode = sendword(masterfilename[j], "x", "x", j);
+    if(commandcode) goto BACK;
 
   }
+  avg = sum/feasibleN;
+  sd = sqrt(squredsum/feasibleN-avg*avg);
+  printf("master: Optimal cash flow average = %g\n", sum/N);
+  printf("master: Optimal cash flow standard deviation = %g\n", sd);
 
-  printf("master: I'm done\n");  
- BACK:
-  return runcode;
+
+  printf("master: I'm done\n");
+
+  BACK:
+    return commandcode;
 }
+
 
 int sendword(char *tokenfilename, char *constfilename, char *word, int ID)
 {

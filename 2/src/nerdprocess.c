@@ -9,11 +9,11 @@ char does_it_exist(char *filename);
 
 int writelp(double *tomatch, char *lpfilename, int nerdID, int T,
   double blimit, double brate, int cpterm, double cprate, double exrate);
-int solverinteraction(double *tomatch, double *pfinalcashflow, int nerdID, int T, 
+int solverinteraction(double *tomatch, char *pfinalstatus, double *pfinalcashflow, int nerdID, int T, 
   double blimit, double brate, int cpterm, double cprate, double exrate);
 double drawnormal(void);
 
-int processfile(char *constfilename, char *filename, double *pfinalcashflow, int nerdID)
+int processfile(char *constfilename, char *filename, char *pfinalstatus, double *pfinalcashflow, int nerdID)
 {
   int code = 0;
   char buffer[100];
@@ -92,7 +92,7 @@ int processfile(char *constfilename, char *filename, double *pfinalcashflow, int
   
   fclose(theflows);
 
-  code = solverinteraction(tomatch, pfinalcashflow, nerdID, T, 
+  code = solverinteraction(tomatch, pfinalstatus, pfinalcashflow, nerdID, T, 
     blimit, brate, cpterm, cprate, exrate);
   if(code) goto OUT;
 
@@ -104,7 +104,7 @@ int processfile(char *constfilename, char *filename, double *pfinalcashflow, int
   return code;
 }
 
-int solverinteraction(double *tomatch, double *pfinalcashflow, int nerdID, int T, 
+int solverinteraction(double *tomatch, char *pfinalstatus, double *pfinalcashflow, int nerdID, int T, 
   double blimit, double brate, int cpterm, double cprate, double exrate)
 {
   int solvecode = 0, k, numnonz;
@@ -173,6 +173,7 @@ int solverinteraction(double *tomatch, double *pfinalcashflow, int nerdID, int T
 	  fscanf(results, "%s", readbuffer);
 	  /* compare readbuffer to 'Optimal'*/
 	  if (strcmp(readbuffer, "Optimal") == 0){
+      sprintf(pfinalstatus, "%s", "feasible");
 		  /* now read three more*/
 		  fscanf(results, "%s", readbuffer);
 		  fscanf(results, "%s", readbuffer);
@@ -200,6 +201,7 @@ int solverinteraction(double *tomatch, double *pfinalcashflow, int nerdID, int T
 	  }
 	  else if ((strcmp(readbuffer, "infeasible") == 0) ||
 		   strcmp(readbuffer, "unbounded") == 0){
+      sprintf(pfinalstatus, "%s", "not feasible");
 	    printf(" ==>> LP infeasible or unbounded\n");
 	    break;
 	  }
