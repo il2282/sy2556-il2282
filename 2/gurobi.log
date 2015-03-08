@@ -185,3 +185,283 @@ Presolve time: 0.00s
 
 Solved in 0 iterations and 0.00 seconds
 Infeasible or unbounded model
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:12:58 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 2e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+02]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.6414632e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.01 seconds
+Optimal objective  6.641463232e+02
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:13:00 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 2e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+02]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.5516827e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  6.551682716e+02
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:14:33 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+02]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.5219062e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  6.521906185e+02
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:14:35 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+02]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    6.5714271e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  6.571427118e+02
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:15:02 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+06]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.5445002e+06   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective -1.544500185e+06
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:15:04 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+06]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -1.5444966e+06   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective -1.544496553e+06
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:15:33 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+06]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.5322255e+06   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  1.532225455e+06
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:15:35 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+06]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    1.5322223e+06   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  1.532222265e+06
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:26:44 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+02]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    3.4871967e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  3.487196738e+02
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:26:46 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+02]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    3.4553410e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  3.455341030e+02
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:27:36 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+02]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    3.5277815e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  3.527781526e+02
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:27:38 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+02]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    3.5115973e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  3.511597330e+02
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:29:05 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+02]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    3.5718835e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  3.571883460e+02
+
+Gurobi 6.0.0 (linux64) logging started Sun Mar  8 13:29:07 2015
+
+Read LP format model from file ./lp/cash_0.lp
+Reading time = 0.00 seconds
+(null): 4 rows, 8 columns, 15 nonzeros
+Optimize a model with 4 rows, 8 columns and 15 nonzeros
+Coefficient statistics:
+  Matrix range    [1e+00, 1e+00]
+  Objective range [1e+00, 1e+00]
+  Bounds range    [1e+02, 1e+02]
+  RHS range       [1e+02, 2e+02]
+Presolve removed 4 rows and 8 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    3.4657516e+02   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds
+Optimal objective  3.465751566e+02

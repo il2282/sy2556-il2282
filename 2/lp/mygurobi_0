@@ -1,5 +1,10 @@
 Solving ./lp/cash_0.lp
-variables = 14
-constraints = 6
-->LP infeasible or unbounded
+variables = 8
+constraints = 4
+Optimal objective = 346.575
+4 nonzero variables in solution
+v4 = 346.575156637
+y1 = 150.787
+z2 = 199.213
+z3 = 299.820091
 bye.

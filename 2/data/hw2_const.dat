@@ -1,7 +1,7 @@
 borrow_limit 100
-borrow_rate 0
+borrow_rate 3.5
 cpaper_term 3
-cpaper_rate 99
-excess_rate 1
+cpaper_rate 2.5
+excess_rate .7
 
 END
