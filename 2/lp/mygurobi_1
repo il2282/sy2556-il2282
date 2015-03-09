@@ -1,0 +1,10 @@
+Solving ./lp/cash_1.lp
+variables = 8
+constraints = 4
+Optimal objective = 354.17
+4 nonzero variables in solution
+v4 = 354.16999341
+y1 = 148.91
+z2 = 201.09
+z3 = 303.58763
+bye.
