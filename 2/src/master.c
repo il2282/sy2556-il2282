@@ -159,11 +159,16 @@ int commandnerd(int N, int numnerds, char* wordlist, char* constfilename)
     if(commandcode) goto BACK;
 
   }
-  avg = sum/feasibleN;
-  sd = sqrt(squredsum/feasibleN-avg*avg);
-  printf("master: Optimal cash flow average = %g\n", sum/N);
-  printf("master: Optimal cash flow standard deviation = %g\n", sd);
-
+  
+  printf("\nmaster: %d simulation(s) feasible, out of %d.\n", feasibleN, N);
+  if(feasibleN != 0){
+  	avg = sum/feasibleN;
+  	sd = sqrt(squredsum/feasibleN-avg*avg);
+  	printf("master: For the feasible samples,\n\toptimal cash flow average and standard deviation are %g and %g respectively.\n", avg, sd);
+  }
+  
+  
+  
 
   printf("master: I'm done\n");
 
