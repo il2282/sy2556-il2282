@@ -1,0 +1,4 @@
+make clean
+make power
+./power little.dat
+./power ../data/little.dat
