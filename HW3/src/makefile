@@ -27,21 +27,6 @@ GRBLNFLAGS = -L$(GRB)/lib -lgurobi60
 
 GRBLPINCDIR = $(GRB)/include
 
-#cplex
-#------------------------- true Unix ----------------------------
-LIBNAME = libcplex.a 
-#------------------------------- cygwin -------------------------
-#LIBNAME = cplex112.lib
-
-CPX = $(fatbabyCPX)
-#CPX = $(houndbabyCPX)
-#CPX = $(rockyCPX)
-#CPX = $(racepointCPX)
-
-CPXLNFLAGS = $(CPX)/libcplex.a
-
-CPXLPINCDIR = /opt/ibm/ILOG/CPLEX_Enterprise_Server126/CPLEX_Studio/cplex/include
-
 #------------ LPSOLVER CHOICE MADE HERE ---------------
 
 #CCCLNFLAGS = $(CPXLNFLAGS) $(LIBS)
@@ -57,10 +42,10 @@ CCCFLAGS =
 	@echo compiling $*.c with $(CCC) $(CCCFLAGS)
 	@$(CCC) $(CCCFLAGS) -c $< -o $@
 
-POWER = ../bin/mainpower.o ../bin/power.o ../bin/utilities.o
+MAIN = ../bin/main.o ../bin/meanvar.o ../bin/power.o ../bin/utilities.o
 
-power: $(POWER)
-	$(CCC) $(CCCFLAGS) -o ../bin/power $(POWER) $(CCCLNFLAGS)
+main: $(MAIN)
+	$(CCC) $(CCCFLAGS) -o ../bin/main $(MAIN) $(CCCLNFLAGS)
 
 clean:
 	rm ../bin/*

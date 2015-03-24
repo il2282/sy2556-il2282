@@ -4,36 +4,11 @@
 
 #define NOMEMORY 100
 
-int allocatespace(int n, double **pvector, double **pnewvector, double **pmatrix);
-int readnload(char *filename, int *pn, double **pvector, double **pnewvector, double **pmatrix);
+void poweriteration(int n, double *vector, double* newvector, double *matrix, double *p_error, double *p_val);
 
-void poweriteration(int k, 
-		    int n, double *vector, double *newvector, double *matrix,
-		    double *perror);
+void poweralg(int n, double *matrix, double *p_vector, double *p_val);
 
-void poweralg(int n, double *vector, double *newvector, double *matrix);
+void compute_error(int n, double *p_error, double *newvector, double *vector);
 
-void showvector(int n, double *vector);
-
-void compute_error(int n, double *perror, double *newvector, double *vector);
+void matrix_subtraction(int n, double *matrix, double *p_eigvec, double eigval);
 #endif
-
-/*class powerunit{
- public:
-  powerunit(char *inputname);
-  ~powerunit();
-  int readnload(char *file);
-  int allocatespace();
-  void iterate();
-  void showvector(){ for(int j = 0; j < n; j++) printf("%g ",vector[j]);
-  printf("\n");}
-  char *getname(){return name;}
- private:
-  void releasespace();
-  int n;
-  double *matrix;
-  double *vector;
-  double *newvector;
-  char *name;
-};
-*/

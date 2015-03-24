@@ -1,6 +1,5 @@
 #include "meanvar.h"
 
-
 int read_asset_obs_get_meanvar(char* p_obsfile, double **pp_assetobs, double **pp_mean, double **pp_var, int assetnum, int obsnum){
 	
 	int assetindex, obsindex, readcode = 0;

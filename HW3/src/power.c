@@ -2,71 +2,13 @@
 #include "power.h"
 
 
-int allocatespace(int n, double **pv, double **pnewvector, double **pmatrix)
+
+void poweriteration(int n, double *vector, double* newvector, double *matrix, double *p_error, double *p_val)
 {
-  int retcode = 0;
-  double *v = NULL;
-
-  v = (double *) calloc(n + n + n*n, sizeof(double));
-  if(!v){
-    retcode = NOMEMORY; goto BACK;
-  }
-  *pv = v;
-  *pnewvector = v + n;
-  *pmatrix = v + 2*n;
-
- BACK:
-  return retcode;
-}
-
-
-int readnload(char *filename, int *pn, double **pvector, double **pnewvector, double **pmatrix)
-{
-  int retcode = 0, n, j;
-  FILE *input = NULL;
-  char buffer[100];
-
-  input = fopen(filename, "r");
-  if(!input){
-    printf("cannot open file %s\n", filename); retcode = 1; goto BACK;
-  }
-  fscanf(input,"%s", buffer);
-  fscanf(input,"%s", buffer);
-  n = atoi(buffer);
-  *pn = n;
-  
-  printf("n = %d\n", n);
-  retcode = allocatespace(n, pvector, pnewvector, pmatrix);
-  if(retcode) goto BACK;
-
-
-  fscanf(input,"%s", buffer);
-  for(j = 0; j < n*n; j++){ 
-    fscanf(input,"%s", buffer);
-    (*pmatrix)[j] = atof(buffer);
-  }
-
-  /** ignore any vector and generate at random **/  
-  for(j = 0; j < n; j++){ 
-    (*pvector)[j] = rand()/((double) RAND_MAX);
-  }
-
-  fclose(input);
-
- BACK:
-  printf("read and loaded data for n = %d with code %d\n", n, retcode);
-  return retcode;
-}
-
-
-void poweriteration(int k, 
-		    int n, double *vector, double *newvector, double *matrix,
-		    double *perror)
-{
-  double norm2 = 0, mult, error;
+  double norm2 = 0, mult, norm = 0;
   int i, j;
+
   for(i = 0; i <n; i++){
-    newvector[i] = 0;
     for (j = 0; j < n; j++){
       newvector[i] += vector[j]*matrix[i*n + j];
     }
@@ -75,14 +17,14 @@ void poweriteration(int k,
   norm2 = 0;
   for(j = 0; j < n; j++) norm2 += newvector[j]*newvector[j];
 
-  mult = 1/sqrt(norm2);
-  printf("at iteration %d, norm squared is %g\n", k, norm2);
+
+  norm = sqrt(norm2);
+  *p_val = norm;
+  mult = 1/norm;
 
   for(j = 0; j < n; j++) newvector[j] = newvector[j]*mult;
 
-  compute_error(n, &error, newvector, vector);
-
-  *perror = error;
+  compute_error(n, p_error, newvector, vector);
 
   /** will need to map newvector into vector if not terminated **/
 
@@ -90,7 +32,7 @@ void poweriteration(int k,
 
 }
 
-void compute_error(int n, double *perror, double *newvector, double *vector)
+void compute_error(int n, double *p_error, double *newvector, double *vector)
 {
   int j;
   double error;
@@ -101,33 +43,39 @@ void compute_error(int n, double *perror, double *newvector, double *vector)
     error += fabs(newvector[j] - vector[j]);
   }
 
-  *perror = error;
+  *p_error = error;
 
 }
 
-void poweralg(int n, double *vector, double *newvector, double *matrix)
-{
-  int k;
+void poweralg(int n, double *matrix, double *p_vector, double *p_val){
+  
   double error, tolerance;
+  double *newvector;
+  int i;
 
+
+  
+  for(i = 0; i < n; i++){ 
+  	p_vector[i] = rand()/((double) RAND_MAX);
+  }
+
+  newvector = (double *)calloc(n, sizeof(double));
   tolerance = .000001/n;
 
-  for(k = 0; ; k++){
-    poweriteration(k, n, vector, newvector, matrix, &error);
-    printf("  L1 of error is %.9e\n", error);
-    /*    showvector(n, vector);*/
-    if(error < tolerance){
-      printf(" converged!\n"); break;
-    }
+
+  for(;;){
+    poweriteration(n, p_vector, newvector, matrix, &error, p_val);
+    if(error < tolerance) break;
   }
 }
 
-void showvector(int n, double *vector)
-{
-  int j;
 
-  for (j = 0; j < n; j++){
-    printf(" %g", vector[j]);
-  }
-  printf("\n");
+void matrix_subtraction(int n, double *matrix, double *p_eigvec, double eigval){
+	int i, j;
+
+	for (i = 0; i < n; i++){
+		for (j = 0; j < n; j++){
+			matrix[i*n+j] = matrix[i*n+j]-eigval*p_eigvec[i]*p_eigvec[j];
+		}
+	}
 }

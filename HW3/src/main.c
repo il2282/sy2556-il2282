@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "meanvar.h"
+#include "power.h"
+#include "utilities.h"
 
 int main(int argc, char *argv[])
 {
-  int assetnum, obsnum, code = 0;
-  double *p_assetobs = NULL, *p_mean = NULL, *p_var = NULL;
+  int assetnum, obsnum, code = 0, itr, j;
+  double val;
+  double *p_assetobs = NULL, *p_mean = NULL, *p_var = NULL, *p_vector = NULL, *p_eigval = NULL, *p_eigvec = NULL;
   FILE *input = NULL;
   char buffer[100];
 
@@ -35,14 +38,32 @@ int main(int argc, char *argv[])
   code = read_asset_obs_get_meanvar(argv[1], &p_assetobs, &p_mean, &p_var, assetnum, obsnum);
   if(code) goto BACK;
 
-  printf("%f\n", p_var[1]);
-  printf("%f\n", p_var[1000]);
+  p_vector = (double *)calloc(assetnum, sizeof(double));
+  p_eigval = (double *)calloc(assetnum, sizeof(double));
+  p_eigvec = (double *)calloc(assetnum*assetnum, sizeof(double));
 
 
-	 
+  
+
+  for(itr = 0; itr < assetnum; itr++){
+
+  	poweralg(assetnum, p_var, p_vector, &val);
+  	p_eigval[itr] = val;
+  	for (j = 0; j < assetnum; j++){
+  		p_eigvec[j] = p_vector[j];
+  	}
+  	printf("The %dth eigenvalue = %f\n", itr, p_eigval[itr]);
+
+  	if (val/p_eigval[0] < 0.001) break;
+
+  	matrix_subtraction(assetnum, p_var, p_vector, val);
+  }
+
 BACK:
   return code;
 }
+
+
 
 
 
