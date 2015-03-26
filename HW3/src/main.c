@@ -4,16 +4,18 @@
 #include "power.h"
 #include "utilities.h"
 
+int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eigval, double lambda);
+
 int main(int argc, char *argv[])
 {
   int assetnum, obsnum, code = 0, itr, j;
-  double val;
+  double val, lambda;
   double *p_assetobs = NULL, *p_mean = NULL, *p_var = NULL, *p_vector = NULL, *p_eigval = NULL, *p_eigvec = NULL;
   FILE *input = NULL;
   char buffer[100];
 
-  if(argc != 3){ 
-    printf(" usage: main asset_observation_filename parameter_filename\n");
+  if(argc != 4){ 
+    printf(" usage: main asset_observation_filename parameter_filename lambda\n");
     code = 1; goto BACK;
   }
 
@@ -50,16 +52,19 @@ int main(int argc, char *argv[])
   	poweralg(assetnum, p_var, p_vector, &val);
   	p_eigval[itr] = val;
   	for (j = 0; j < assetnum; j++){
-  		p_eigvec[j] = p_vector[j];
+  		p_eigvec[itr*assetnum+j] = p_vector[j];
   	}
-  	printf("The %dth eigenvalue = %f\n", itr, p_eigval[itr]);
 
-  	if (val/p_eigval[0] < 0.001) break;
-
+  	if (val/p_eigval[0] < 0.01) break;
   	matrix_subtraction(assetnum, p_var, p_vector, val);
   }
 
+  sscanf(argv[3], "%lf", &lambda);
+  printf("in main: lambda = %f", lambda);
+  code = engine(assetnum, itr, p_mean, p_eigvec, p_eigval, lambda);
+
 BACK:
+  printf("\nexiting main with code %d\n", code);
   return code;
 }
 
