@@ -54,6 +54,7 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
     }
     sprintf(names[j],"y%d", j - numassets);
   }
+  
   /* initialize variables */
   for(j = 0; j < n; j++){
     retcode = GRBsetstrattrelement(model, "VarName", j, names[j]);
@@ -73,9 +74,7 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
     }
   }
 
-  /** next, the quadratic -- there are numassets + numfactors*numfactors nonzeroes: 
-      numassets residual variances plus the numfactors x numfactors
-      factor covariance matrix**/
+  /* next, the quadratic */
 
   qrow = (int *) calloc(numeigval, sizeof(int));  /** row indices **/
   qcol = (int *) calloc(numeigval, sizeof(int));  /** column indices **/
@@ -97,7 +96,7 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
   /** now we will add one constraint at a time **/
   /** we need to have a couple of auxiliary arrays **/
 
-  cind = (int *)calloc(numassets+1, sizeof(int));  /** n is over the top since no constraint is totally dense;		     but it's not too bad here **/
+  cind = (int *)calloc(numassets+1, sizeof(int));
   if(!cind){
     printf("cannot allocate cind\n"); retcode = 2; goto BACK;
   }

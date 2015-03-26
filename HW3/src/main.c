@@ -44,9 +44,7 @@ int main(int argc, char *argv[])
   p_eigval = (double *)calloc(assetnum, sizeof(double));
   p_eigvec = (double *)calloc(assetnum*assetnum, sizeof(double));
 
-
-  
-
+  /* find large enough eigenvalues and their corresponding eigenvectors */
   for(itr = 0; itr < assetnum; itr++){
 
   	poweralg(assetnum, p_var, p_vector, &val);
@@ -55,10 +53,11 @@ int main(int argc, char *argv[])
   		p_eigvec[itr*assetnum+j] = p_vector[j];
   	}
 
-  	if (val/p_eigval[0] < 0.01) break;
+  	if (val/p_eigval[0] < 0.001) break;
   	matrix_subtraction(assetnum, p_var, p_vector, val);
   }
 
+  /* run optimization problem */
   sscanf(argv[3], "%lf", &lambda);
   printf("in main: lambda = %f", lambda);
   code = engine(assetnum, itr, p_mean, p_eigvec, p_eigval, lambda);
@@ -67,42 +66,3 @@ BACK:
   printf("\nexiting main with code %d\n", code);
   return code;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-	powerunit *punit = NULL;
-
-	punit = new powerunit("two");
-	punit->readnload(argv[1]);
-	punit->iterate();
-
-	delete punit;  */
- 

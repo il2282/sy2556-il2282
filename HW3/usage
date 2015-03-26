@@ -1,4 +1,3 @@
 make clean
-make power
-./power little.dat
-./power ../data/little.dat
+make main
+./../bin/main ../data/dump2.csv ../data/parameter.dat 1
