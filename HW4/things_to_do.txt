@@ -1,0 +1,13 @@
+THINGS TO DO
+
+1. time series data is in the data folder.
+
+2. input of mainrpower: .exe_file time_series_data_file number_of_workers number_of_jobs
+
+3. worker only takes time series data. Perturbation of time series is done inside each thread.
+
+--------------------------------------------------------
+
+PROGRESS
+
+Joseph: I will start working on mainrpower.c.
