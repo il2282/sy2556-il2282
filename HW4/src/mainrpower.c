@@ -12,42 +12,27 @@ void *PWR_wrapper(void *pvoidedbag);
 int main(int argc, char *argv[])
 {
   int code = 0, i, j, n, initialruns, activeworkers, scheduledjobs;
+  int quantity = 1, numworkers = 1;
+  double *ptimeseries = NULL;
   powerbag **ppbag = NULL, *pbag;
   double *matcopy = NULL, *scratch = NULL;
   double scale = 1.0;
-  int quantity = 1, numworkers = 1, theworker;
+  int theworker;
   char gotone;
 
   pthread_t *pthethread1;
   pthread_mutex_t output;
   pthread_mutex_t *psynchro_array;
 
-  if(argc < 2){ 
-    printf(" usage: rpower filename [-s scale] [-q quantity]\n");
+  if(argc != 5){ 
+    printf(" usage: rpower data_filename parameters_filename numworkers job_quantity\n");
     code = 1; goto BACK;
   }
 
-  for(j = 2; j < argc; j++){
-    if (0 == strcmp(argv[j],"-s")){
-      j += 1;
-      scale = atof(argv[j]);
-    }
-    else if (0 == strcmp(argv[j],"-q")){
-      j += 1;
-      quantity = atoi(argv[j]);
-    }
-    else if (0 == strcmp(argv[j],"-w")){
-      j += 1;
-      numworkers = atoi(argv[j]);
-    }
-    else{
-      printf("bad option %s\n", argv[j]); code = 1; goto BACK;
-    }
-  }
+  numworkers = atoi(argv[2]);
+  quantity = atoi(arv[3]);
 
-
-  printf("will use scale %g and quantity %d: %d workers\n", scale, quantity,
-	 numworkers);
+  printf("%d workers will work on %d jobs.\n", numworkers, quantity);
 
   pthread_mutex_init(&output, NULL); /** common to everybody **/
 
@@ -69,6 +54,8 @@ int main(int argc, char *argv[])
   if(!pthethread1){
     printf("could not create thread array\n"); code = NOMEMORY; goto BACK;
   }
+
+  code = PWRreadnload(argv[1], &n, &ptimeseries);
 
 
 

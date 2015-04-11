@@ -73,7 +73,7 @@ int PWRreadnload_new(char *filename, int ID, powerbag **ppbag)
   return code;
 }
 
-int PWRreadnload(char *filename, int *pn, double **pvector, double **pnewvector, double **pmatrix)
+int PWRreadnload(char *filename, int *pn, double **ppvector)
 {
   int retcode = 0, n, j;
   FILE *input = NULL;
@@ -89,19 +89,17 @@ int PWRreadnload(char *filename, int *pn, double **pvector, double **pnewvector,
   *pn = n;
   
   printf("n = %d\n", n);
-  retcode = PWRallocatespace(n, pvector, pnewvector, pmatrix);
-  if(retcode) goto BACK;
+  *ppvector = (double *)calloc(n, sizeof(double));
+  if(*ppvector) {
+    retcode = 1;
+    goto BACK;
+  }
 
 
   fscanf(input,"%s", buffer);
-  for(j = 0; j < n*n; j++){ 
-    fscanf(input,"%s", buffer);
-    (*pmatrix)[j] = atof(buffer);
-  }
-
-  /** ignore any vector and generate at random **/  
   for(j = 0; j < n; j++){ 
-    (*pvector)[j] = rand()/((double) RAND_MAX);
+    fscanf(input,"%s", buffer);
+    (*ppvector)[j] = atof(buffer);
   }
 
   fclose(input);
