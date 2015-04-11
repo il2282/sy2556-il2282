@@ -1,0 +1,8 @@
+PROGRESS
+
+Joseph:
+mainrpower.c is pretty much done. bag now contains purtubed time series, mean, covariance matrix, etc. Now I need to work on:
+	- finding eigenvalues and eigenvectors.
+	- run optimization problems.
+Probably create a worker.c file that contains functions that do the above 2 steps.
+
