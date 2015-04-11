@@ -4,20 +4,20 @@
 #include "power.h"
 
 
-
-int PWRallocatespace(int n, double **pv, double **pnewvector, double **pmatrix)
+int PWRallocatespace(PowerBag* p_bag)
 {
   int retcode = 0;
   double *v = NULL;
 
-  v = (double *) calloc(n + n + n*n, sizeof(double));
+  v = (double *) calloc(p_bag->assetNum*p_bag->rtnNum + p_bag->rtnNum + p_bag->assetNum*p_bag->assetNum + p_bag->assetNum, sizeof(double));
   if(!v){
     retcode = NOMEMORY; goto BACK;
   }
   printf("allocated vector at %p\n", (void *) v);
-  *pv = v;
-  *pnewvector = v + n;
-  *pmatrix = v + 2*n;
+  p_bag->p_pertAssetRtn = v;
+  p_bag->p_mean = v + p_bag->assetNum*p_bag->rtnNum;
+  p_bag->p_var = v + p_bag->assetNum*p_bag->rtnNum + p_bag->rtnNum;
+  p_bag->p_optimal = v + p_bag->assetNum*p_bag->rtnNum + p_bag->rtnNum + p_bag->assetNum*p_bag->assetNum;
 
  BACK:
   return retcode;
@@ -62,7 +62,6 @@ int PWRreadnload_new(char *filename, int ID, powerbag **ppbag)
   }
   *ppbag = pbag;
 
-  pbag->n = n;
   pbag->ID = ID;
   pbag->vector = vector;
   pbag->newvector = newvector;

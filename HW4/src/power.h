@@ -13,28 +13,27 @@
 #define WORK 201
 #define STANDBY 202
 
-typedef struct powerbag{
-  int n;
-  double *vector;
-  double *newvector;
-  double *matrix;
-  double *matcopy;
-  double *scratch;
-  double topeigvalue;
+typedef struct PowerBag{
+  int rtnNum;
+  int assetNum;
+  double *p_pertAssetRtn;
+  double *p_mean;
+  double *p_var;
+  double *p_optimal;
   int ID;
   int status;
   int command;
-  int jobnumber;  
-  pthread_mutex_t *psynchro;
-  pthread_mutex_t *poutputmutex;
-}powerbag;
+  int jobNumber;  
+  pthread_mutex_t *p_synchro;
+  pthread_mutex_t *p_outputMutex;
+}PowerBag;
 
 void PWRpoweralg_new(powerbag *pbag);
 void PWRfreespace(powerbag **ppbag);
 void PWRfree(double **pvector);
 int PWRreadnload_new(char *filename, int ID, powerbag **ppbag);
 
-int PWRallocatespace(int n, double **pvector, double **pnewvector, double **pmatrix);
+int PWRallocatespace(int assetNum, int rtnNum, double **pp_pertAssetRtn, double **pp_mean, double **pp_var, double **pp_optimal);
 int PWRreadnload(char *filename, int *pn, double **pvector, double **pnewvector, double **pmatrix);
 
 void PWRpoweriteration(int ID, int k, 

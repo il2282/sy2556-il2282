@@ -13,5 +13,6 @@ char does_it_exist(char *filename);
 void gotosleep(int numseconds);
 void erasefile(char *filename);
 double drawnormal(void);
+double drawNormalVector(double *p_vector, int n, double sigma);
 
 #endif

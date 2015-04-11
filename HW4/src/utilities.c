@@ -27,7 +27,6 @@ void erasefile(char *filename)
   remove(filename);
 }
 
-
 double drawnormal(void)
 {
   double U1, U2, drawn, pi;
@@ -40,4 +39,12 @@ double drawnormal(void)
   drawn = sqrt(-2*log(U1))*cos(2*pi*U2);
 
   return drawn;
+}
+
+double drawNormalVector(double *p_vector, int n, double sigma)
+{
+  int i;
+  double sum = 0;
+
+  for (i=0; i<n; i++) sum += p_vector[i] = drawnormal()*sigma;
 }
