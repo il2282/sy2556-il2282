@@ -47,4 +47,5 @@ double drawNormalVector(double *p_vector, int n, double sigma)
   double sum = 0;
 
   for (i=0; i<n; i++) sum += p_vector[i] = drawnormal()*sigma;
+  return sum;
 }

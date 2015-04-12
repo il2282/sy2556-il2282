@@ -2,3 +2,4 @@
 #observations: 250
 epsilon_standard_deviation: 1
 original_data_proportion: 0.99
+tolerance: 0.01

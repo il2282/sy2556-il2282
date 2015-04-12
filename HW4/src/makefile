@@ -17,7 +17,6 @@ LIBS= $(LINUXLIBS)
 #---------------- GUROBI -----------------------------------
 furrybabyGRB = /opt/gurobi600/linux64
 
-
 GRB = $(furrybabyGRB)
 GRBLNFLAGS = -L$(GRB)/lib -lgurobi60
 
@@ -25,40 +24,23 @@ GRBLNFLAGS = -L$(GRB)/lib -lgurobi60
 
 GRBLPINCDIR = $(GRB)/include
 
-#cplex
-#------------------------- true Unix ----------------------------
-LIBNAME = libcplex.a 
-#------------------------------- cygwin -------------------------
-#LIBNAME = cplex112.lib
-
-CPX = $(fatbabyCPX)
-#CPX = $(houndbabyCPX)
-#CPX = $(rockyCPX)
-#CPX = $(racepointCPX)
-
-CPXLNFLAGS = $(CPX)/libcplex.a
-
-CPXLPINCDIR = /opt/ibm/ILOG/CPLEX_Enterprise_Server126/CPLEX_Studio/cplex/include
 
 #------------ LPSOLVER CHOICE MADE HERE ---------------
 
 #CCCLNFLAGS = $(CPXLNFLAGS) $(LIBS)
-#CCCLNFLAGS = $(GRBLNFLAGS) $(LIBS)
-#LPINCDIR = $(GRBLPINCDIR) #none for this project
+CCCLNFLAGS = $(GRBLNFLAGS) $(LIBS)
+LPINCDIR = $(GRBLPINCDIR) #none for this project
 
-CCCLNFLAGS = $(LIBS)
-LPINCDIR =
-
-CCCFLAGS = 
+CCCFLAGS = -I$(LPINCDIR) 
 
 ../bin/%.o: %.c
 	@echo compiling $*.c with $(CCC) $(CCCFLAGS)
 	@$(CCC) $(CCCFLAGS) -c $< -o $@
 
-RPOWER = ../bin/mainrpower.o ../bin/power.o ../bin/utilities.o
+MAIN = ../bin/engine.o ../bin/main.o ../bin/power.o ../bin/utilities.o ../bin/powerbag.o ../bin/seriesoperation.o  ../bin/worker.o
 
-rpower: $(RPOWER)
-	$(CCC) $(CCCFLAGS) -o ../bin/rpower $(RPOWER) $(CCCLNFLAGS)
+power: $(MAIN)
+	$(CCC) $(CCCFLAGS) -o ../bin/main $(MAIN) $(CCCLNFLAGS)
 
 clean:
 	rm ../bin/*

@@ -1,0 +1,32 @@
+
+Gurobi 6.0.0 (linux64) logging started Sat Apr 11 20:25:13 2015
+
+
+Gurobi 6.0.0 (linux64) logging started Sat Apr 11 20:25:16 2015
+
+Optimize a model with 1001 rows, 2000 columns and 1002000 nonzeros
+Model has 1000 quadratic objective terms
+Coefficient statistics:
+  Matrix range    [0e+00, 1e+00]
+  Objective range [2e+00, 2e+00]
+  Bounds range    [1e+04, 1e+04]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 1001 rows and 2000 columns
+Presolve time: 0.23s
+Presolve: All rows and columns removed
+
+Barrier solved model in 0 iterations and 0.24 seconds
+Optimal objective -2.44628514e+00
+Optimize a model with 1001 rows, 2000 columns and 1002000 nonzeros
+Model has 1000 quadratic objective terms
+Coefficient statistics:
+  Matrix range    [0e+00, 1e+00]
+  Objective range [2e+00, 2e+00]
+  Bounds range    [1e+04, 1e+04]
+  RHS range       [1e+00, 1e+00]
+Presolve removed 1001 rows and 2000 columns
+Presolve time: 0.07s
+Presolve: All rows and columns removed
+
+Barrier solved model in 0 iterations and 0.07 seconds
+Optimal objective -2.44628514e+00

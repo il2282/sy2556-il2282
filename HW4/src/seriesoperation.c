@@ -1,4 +1,6 @@
-#include "meanvar.h"
+#include "seriesoperation.h"
+#include "utilities.h"
+
 
 int readAssetObsGetMean(char *p_obsFile, double **pp_assetRtn, double **pp_mean, int assetNum, int rtnNum){
 
@@ -19,10 +21,9 @@ int readAssetObsGetMean(char *p_obsFile, double **pp_assetRtn, double **pp_mean,
 	}
 
 
-
 	for (assetIndex = 0; assetIndex < assetNum; assetIndex++){
 		fscanf(input, "%s", buffer);
-		previousObs = atoi(beffer);
+		previousObs = atoi(buffer);
 		for (obsIndex = 0; obsIndex < rtnNum; obsIndex++){
 			fscanf(input, "%s", buffer);
 			currentObs = atoi(buffer);
@@ -74,25 +75,30 @@ void mean(double* p_assetObs, double *p_mean, int assetNum, int rtnNum){
 
 int timeSeriesPerturb(double *p_assetRtn, PowerBag* p_bag, double *v, double epsSd, double orgProp)
 {
-  int retcode = 0, assetIndex, rtnIndex;
+  int retcode = 0, assetIndex, rtnIndex, assetNum, rtnNum;
   double *eps;
   double sum;
 
- 
+  assetNum = p_bag->assetNum;
+  rtnNum = p_bag->rtnNum;
+
   eps = (double *)calloc(rtnNum, sizeof(double));
   if (!eps){
     retcode = NOMEMORY; goto BACK;
   }
-  sum = drawNormalVector(eps, p_bag->rtnNum-1, epsSd);
-  eps[p_bag->rtnNum-1] = -sum;
 
-  for (assetIndex = 0; assetIndex < p_bag->assetNum; assetIndex++){
-    for (rtnIndex = 0; rtnIndex < p_bag->rtnNum; rtnIndex++){
-      p_bag->p_pertAssetRtn[assetIndex*assetNum+rtnIndex] = orgProp*p_assetRtn[assetIndex*assetNum+rtnIndex] + (1-orgProp)*(p_bag->p_mean[assetIndex] + v[assetIndex]*eps[rtnIndex]);
+  sum = drawNormalVector(eps, rtnNum-1, epsSd);
+  eps[rtnNum-1] = -sum;
+
+  for (assetIndex = 0; assetIndex < assetNum; assetIndex++){
+    for (rtnIndex = 0; rtnIndex < rtnNum; rtnIndex++){
+    	p_bag->p_pertAssetRtn[assetIndex*rtnNum+rtnIndex] = orgProp*p_assetRtn[assetIndex*rtnNum+rtnIndex] + (1-orgProp)*(p_bag->p_mean[assetIndex] + v[assetIndex]*eps[rtnIndex]);
     }
   }
 
-  var(p_bag->p_pertAssetRtn, p_bag->p_var, p_bag->p_mean, p_bag->assetNum, p_bag->rtnNum)
+  var(p_bag->p_pertAssetRtn, p_bag->p_var, p_bag->p_mean, assetNum, rtnNum);
+
+  return retcode;
 
   BACK:
     return retcode;
