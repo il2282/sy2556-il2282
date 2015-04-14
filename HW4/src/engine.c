@@ -6,7 +6,7 @@
 
 
 
-int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eigval, double lambda)
+int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eigval, double lambda, double* optimalArr, pthread_mutex_t* output)
 {
   int retcode = 0;
   GRBenv   *env = NULL;
@@ -137,7 +137,12 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
   retcode = GRBwrite(model, "meanvar.lp");
   if (retcode) goto BACK;
 
+  pthread_mutex_lock(&output);
+  printf("123");
   retcode = GRBoptimize(model);
+  printf("456");
+  pthread_mutex_lock(&output);
+
   if (retcode) goto BACK;
 
 
@@ -151,6 +156,7 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
 
   /** now let's see the values **/
 
+  /*
   opt_expt_rtn = 0;
   printf("Non-zero optimal variables:\n");
   for(j = 0; j < n; j++){
@@ -160,6 +166,11 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
     }
   }
   printf("\nOptimal expected return = %f\n", opt_expt_rtn);
+  */
+
+  for(j = 0; j < numassets; j++){
+    if (x[j]>0.00000001) optimalArr[j] = x[j];
+  }
 
   GRBfreemodel(model);
   GRBfreeenv(env);

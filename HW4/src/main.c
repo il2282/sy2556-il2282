@@ -7,6 +7,7 @@
 #include "seriesoperation.h"
 
 void *workerWrapper(void *p_voidedbag);
+void workerOptimization(PowerBag *p_bag);
 
 int main(int argc, char *argv[])
 {
@@ -68,7 +69,7 @@ int main(int argc, char *argv[])
   quantity = atoi(argv[4]);
   sscanf(argv[5], "%lf", &lambda);
 
-  printf("%d workers will work on %d jobs.\n", workersNum, quantity);
+  printf("\n%d workers will work on %d jobs.\n", workersNum, quantity);
 
   /* read data and obtain average return of assets */
   code = readAssetObsGetMean(argv[1], &p_assetRtn, &p_mean, assetNum, rtnNum);
@@ -139,7 +140,7 @@ int main(int argc, char *argv[])
     p_bag->p_synchro = &p_synchroArray[j];
     p_bag->p_outputMutex = &output;
 
-    printf("about to launch thread for worker %d\n", j);
+    printf("\nabout to launch thread for worker %d\n", j);
 
     pthread_create(&p_threadArray[j], NULL, &workerWrapper, (void *) p_bag);
   }
@@ -151,14 +152,12 @@ int main(int argc, char *argv[])
     p_bag = pp_bag[theWorker];
 
     pthread_mutex_lock(&output);
-    printf("\nPerturbation starts\n");
     if((code = timeSeriesPerturb(p_assetRtn, p_bag, v, epsSd, orgProp)))
       goto BACK;
-    printf("\nPerturbation ends\n");
     pthread_mutex_unlock(&output);
 
     pthread_mutex_lock(&output);
-    printf("*****master:  worker %d will run experiment %d\n", theWorker, theWorker);
+    printf("\n*****master:  worker %d will run experiment %d\n", theWorker, theWorker);
     pthread_mutex_unlock(&output);
 
     /** tell the worker to work **/
@@ -181,16 +180,16 @@ int main(int argc, char *argv[])
       if(p_bag->status == DONEWITHWORK){
 
       	pthread_mutex_lock(&output);
-      	printf("master:  worker %d is done with job %d\nOptimal variables:\n", p_bag->ID, p_bag->jobNumber);
+      	printf("\nmaster:  worker %d is done with job %d\n\nOptimal variables:\n", p_bag->ID, p_bag->jobNumber);
         for (assetIndex = 0; assetIndex < assetNum; assetIndex++){
-          if (p_bag->p_optimal[assetIndex] > 0.0001) printf("x%d = %.12e\n", assetIndex, p_bag->p_optimal[assetIndex]);
+          if (p_bag->p_optimal[assetIndex] > 0.0001) printf("x%d = %.9e\n", assetIndex, p_bag->p_optimal[assetIndex]);
         }
       	pthread_mutex_unlock(&output);
 
       	if(scheduledJobs >= quantity){
       	  /** tell worker to quit **/
       	  pthread_mutex_lock(&output);
-      	  printf("master: telling worker %d to quit\n", p_bag->ID);
+      	  printf("\nmaster: telling worker %d to quit\n", p_bag->ID);
       	  pthread_mutex_unlock(&output);
       	  p_bag->command = QUIT;
       	  p_bag->status = QUIT;
@@ -202,7 +201,7 @@ int main(int argc, char *argv[])
       }
       else if(p_bag->status == PREANYTHING){
       	pthread_mutex_lock(&output);
-      	printf("master:  worker %d is available\n", theWorker);
+      	printf("\nmaster:  worker %d is available\n", theWorker);
       	pthread_mutex_unlock(&output);
       	gotone = 1;
       }
@@ -220,7 +219,7 @@ int main(int argc, char *argv[])
         goto BACK;
 
       pthread_mutex_lock(&output);
-      printf("master:  worker %d will run experiment %d\n", theWorker, scheduledJobs);
+      printf("\nmaster: worker %d will run experiment %d\n", theWorker, scheduledJobs);
       pthread_mutex_unlock(&output);
 
       /** tell the worker to work **/

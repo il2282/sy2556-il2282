@@ -5,6 +5,8 @@
 #include "utilities.h"
 #include "powerbag.h"
 
+int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eigval, double lambda, double *optimalArr, pthread_mutex_t* output);
+
 
 int PWRallocatespace(PowerBag* p_bag)
 {
@@ -44,5 +46,5 @@ void matrixSubtractionWrapper(PowerBag *p_bag, int itr)
 
 int engineWrapper(PowerBag *p_bag, int eigvalNum)
 {
-  return engine(p_bag->assetNum, eigvalNum, p_bag->p_mean, p_bag->p_eigvec, p_bag->p_eigval, p_bag->lambda);
+  return engine(p_bag->assetNum, eigvalNum, p_bag->p_mean, p_bag->p_eigvec, p_bag->p_eigval, p_bag->lambda, p_bag->p_optimal, p_bag->p_outputMutex);
 }

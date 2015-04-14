@@ -5,7 +5,7 @@
 
 void workerOptimization(PowerBag *p_bag)
 {
-  int itr, ID, letsgo, waitcount;
+  int itr, ID, letsgo, waitcount, i;
   double tolerance;
 
 
@@ -13,13 +13,13 @@ void workerOptimization(PowerBag *p_bag)
   tolerance = p_bag->tolerance;
 
   pthread_mutex_lock(p_bag->p_outputMutex);
-  printf("ID %d starts\n", ID);
+  printf("\nID %d: ID %d starts\n", ID, ID);
   pthread_mutex_unlock(p_bag->p_outputMutex);
 
   for(;;){
 
     pthread_mutex_lock(p_bag->p_outputMutex);
-    printf(" ID %d in big loop\n", ID);
+    printf("\nID %d: ID %d in big loop\n", ID, ID);
     pthread_mutex_unlock(p_bag->p_outputMutex);
 
     letsgo = 0;
@@ -41,7 +41,7 @@ void workerOptimization(PowerBag *p_bag)
 
       if(0 == waitcount%2){
         pthread_mutex_lock(p_bag->p_outputMutex);
-        printf("ID %d: wait %d for signal to start working\n", p_bag->ID, waitcount);
+        printf("\nID %d: wait %d for signal to start working\n", ID, waitcount);
         pthread_mutex_unlock(p_bag->p_outputMutex);
       }
 
@@ -50,17 +50,20 @@ void workerOptimization(PowerBag *p_bag)
     }
 
     pthread_mutex_lock(p_bag->p_outputMutex);
-    printf("ID %d: got signal to start working\n", p_bag->ID);
+    printf("\nID %d: got signal to start working\n", p_bag->ID);
     pthread_mutex_unlock(p_bag->p_outputMutex);
 
 
     /* Calculate eigenvalues and eigenvectors*/
     for(itr = 0; itr < p_bag->assetNum; itr++){
       poweralgWrapper(p_bag,itr);
+      for (i=0; i<p_bag->assetNum; i++){
+        p_bag->p_eigvec[itr*p_bag->assetNum+i] = p_bag->p_vector[i]; 
+      }
 
       if((p_bag->p_eigval)[itr]/(p_bag->p_eigval)[0] < tolerance){
         pthread_mutex_lock(p_bag->p_outputMutex);
-        printf(" ID %d converged to tolerance %g! on job %d\n", ID, tolerance, p_bag->jobNumber); 
+        printf("\nID %d converged to tolerance %g! on job %d\n", ID, tolerance, p_bag->jobNumber); 
         pthread_mutex_unlock(p_bag->p_outputMutex);
         break;
       }
@@ -73,7 +76,7 @@ void workerOptimization(PowerBag *p_bag)
     if(engineWrapper(p_bag, itr)) {
 
       pthread_mutex_lock(p_bag->p_outputMutex);
-      printf("ID %d: error in engine.\n", p_bag->ID);
+      printf("\nID %d: error in engine.\n", p_bag->ID);
       pthread_mutex_unlock(p_bag->p_outputMutex);
 
       pthread_mutex_lock(p_bag->p_synchro);
@@ -93,6 +96,6 @@ void workerOptimization(PowerBag *p_bag)
 
 DONE:
   pthread_mutex_lock(p_bag->p_outputMutex);
-  printf(" ID %d quitting\n", p_bag->ID);
+  printf("\nID %d quitting\n", p_bag->ID);
   pthread_mutex_unlock(p_bag->p_outputMutex);
 }
