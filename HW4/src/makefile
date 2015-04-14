@@ -39,6 +39,9 @@ CCCFLAGS = -I$(LPINCDIR)
 
 MAIN = ../bin/engine.o ../bin/main.o ../bin/power.o ../bin/utilities.o ../bin/powerbag.o ../bin/seriesoperation.o  ../bin/worker.o
 
+
+all: clean power
+
 power: $(MAIN)
 	$(CCC) $(CCCFLAGS) -o ../bin/main $(MAIN) $(CCCLNFLAGS)
 
@@ -48,3 +51,4 @@ clean:
 seep:
 	rm *~
 	rm *#
+
