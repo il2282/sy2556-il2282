@@ -1,4 +1,4 @@
-
+#include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> 
@@ -16,7 +16,7 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
   int *qrow, *qcol;
   double *qval;
   int *cind;
-  double rhs, opt_expt_rtn;
+  double rhs;
   char sense;
   double *cval;
   int numnonz;
@@ -137,11 +137,11 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
   retcode = GRBwrite(model, "meanvar.lp");
   if (retcode) goto BACK;
 
-  pthread_mutex_lock(&output);
+  pthread_mutex_lock(output);
   printf("123");
   retcode = GRBoptimize(model);
   printf("456");
-  pthread_mutex_lock(&output);
+  pthread_mutex_unlock(output);
 
   if (retcode) goto BACK;
 
