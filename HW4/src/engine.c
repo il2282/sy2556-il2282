@@ -175,11 +175,7 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
   GRBfreemodel(model);
   GRBfreeenv(env);
 
-  /*TODO: free names, x, qrow, qcol, qval, cind, c*/
-
-
-
-
+ 
  BACK:
 
   if(x) free(x);

@@ -3,16 +3,12 @@
 #include "utilities.h"
 
 
-int readAssetObsGetMean(char *p_obsFile, double **pp_assetRtn, double **pp_mean, int assetNum, int rtnNum){
+int readAssetObsGetMean(char *p_obsFile, double *p_assetRtn, double *p_mean, int assetNum, int rtnNum){
 
 	int assetIndex, obsIndex, readCode = 0;
 	FILE* input = NULL;
 	char buffer[100];
 	double previousObs, currentObs;
-
-
-	readCode = meanAllocateSpace(pp_assetRtn, pp_mean, assetNum, rtnNum);
-	if(readCode) goto BACK;
 
 
 	input = fopen(p_obsFile, "r");
@@ -28,12 +24,12 @@ int readAssetObsGetMean(char *p_obsFile, double **pp_assetRtn, double **pp_mean,
 		for (obsIndex = 0; obsIndex < rtnNum; obsIndex++){
 			fscanf(input, "%s", buffer);
 			currentObs = atoi(buffer);
-			(*pp_assetRtn)[assetIndex*rtnNum + obsIndex] = (currentObs - previousObs)/previousObs;
+			p_assetRtn[assetIndex*rtnNum + obsIndex] = (currentObs - previousObs)/previousObs;
 		}
 	}
 	fclose(input);
 
-	mean(*pp_assetRtn, *pp_mean, assetNum, rtnNum);
+	mean(p_assetRtn, p_mean, assetNum, rtnNum);
 
 	return readCode;
 
@@ -41,38 +37,6 @@ int readAssetObsGetMean(char *p_obsFile, double **pp_assetRtn, double **pp_mean,
 		return readCode;
 }
 
-int meanAllocateSpace(double **pp_assetRtn, double **pp_mean, int assetNum, int rtnNum){
-	
-	int code = 0;
-	double *mem = NULL;
-
-	mem = (double *)calloc(assetNum*rtnNum + assetNum, sizeof(double));
-	if (!mem){
-		printf("cannot allocate memory.\n");
-		code = 1; goto BACK;
-	}
-
-	*pp_assetRtn = mem;
-	*pp_mean = mem+assetNum*rtnNum;
-
-	return code;
-
-	BACK:
-		return code;
-}
-
-void mean(double* p_assetObs, double *p_mean, int assetNum, int rtnNum){
-	
-	int assetIndex, obsIndex;
-
-	for (assetIndex = 0; assetIndex < assetNum; assetIndex++){
-		for (obsIndex = 0; obsIndex < rtnNum; obsIndex++){
-			p_mean[assetIndex] += p_assetObs[assetIndex*rtnNum + obsIndex];
-		}
-		p_mean[assetIndex] /= rtnNum;
-	}
-
-}
 
 int timeSeriesPerturb(double *p_assetRtn, PowerBag* p_bag, double *v, double epsSd, double orgProp)
 {
@@ -107,6 +71,18 @@ int timeSeriesPerturb(double *p_assetRtn, PowerBag* p_bag, double *v, double eps
 
 }
 
+void mean(double* p_assetObs, double *p_mean, int assetNum, int rtnNum){
+	
+	int assetIndex, obsIndex;
+
+	for (assetIndex = 0; assetIndex < assetNum; assetIndex++){
+		for (obsIndex = 0; obsIndex < rtnNum; obsIndex++){
+			p_mean[assetIndex] += p_assetObs[assetIndex*rtnNum + obsIndex];
+		}
+		p_mean[assetIndex] /= rtnNum;
+	}
+
+}
 
 void var(double *p_assetobs, double *p_var, double *p_mean, int assetnum, int obsnum){
 	

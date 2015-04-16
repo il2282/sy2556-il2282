@@ -71,8 +71,9 @@ int main(int argc, char *argv[])
   printf("\n%d workers will work on %d jobs.\n", workersNum, quantity);
 
   /* read data and obtain average return of assets */
-  
-  code = readAssetObsGetMean(argv[1], &p_assetRtn, &p_mean, assetNum, rtnNum);
+  p_assetRtn = (double *)calloc(assetNum*rtnNum, sizeof(double));
+  p_mean = (double *)calloc(assetNum, sizeof(double));
+  code = readAssetObsGetMean(argv[1], p_assetRtn, p_mean, assetNum, rtnNum);
   if(code) goto BACK;
 
   /* output mutex, common to everybody */
@@ -247,18 +248,20 @@ int main(int argc, char *argv[])
 BACK:
   if(p_assetRtn) free(p_assetRtn);
   if(p_fakeRtn) free(p_fakeRtn);
+  if(p_mean) free(p_mean);
   if(v) free(v);
 
   for(theWorker = 0; theWorker < workersNum; theWorker++){
   	if (pp_bag[theWorker]){
-  		PWRfreespace(pp_bag[theWorker]);
-  		
-  		/*TODO: deal with freeing*/
+  		pthread_create(&p_threadArray[j], NULL, &workerWrapper, (void *) p_bag)
+  		/*PWRfreespace(pp_bag[theWorker]); TODO: each worker free space...*/
+  		if (pp_bag[theWorker]) free(pp_bag[theWorker]);
   	}
   }
   if(pp_bag) free(pp_bag);
   if(p_threadArray) free(p_threadArray);
   if(p_synchroArray) free(p_synchroArray);
+  
   
   return code;
 }

@@ -48,6 +48,13 @@ power: $(MAIN)
 clean:
 	rm ../bin/*
 
+run:
+	../bin/main ../data/dump3.csv ../data/parameter2.dat 2 4 1 
+
+valg:
+	valgdriver ../bin/main ../data/dump3.csv ../data/parameter2.dat 2 4 1 
+
+
 seep:
 	rm *~
 	rm *#
