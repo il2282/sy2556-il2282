@@ -49,10 +49,10 @@ clean:
 	rm ../bin/*
 
 run:
-	../bin/main ../data/dump3.csv ../data/parameter2.dat 2 4 1 
+	../bin/main ../data/dump2.csv ../data/parameter.dat 4 10 1 
 
 valg:
-	valgdriver ../bin/main ../data/dump3.csv ../data/parameter2.dat 2 4 1 
+	valgdriver ../bin/main ../data/dump2.csv ../data/parameter.dat 4 10 1
 
 
 seep:

@@ -152,7 +152,6 @@ int main(int argc, char *argv[])
   for(theWorker = 0; theWorker < initialRuns; theWorker++){
     p_bag = pp_bag[theWorker];
 
-    /* TODO: at least not &output ... synchArray?*/
     pthread_mutex_lock(&p_synchroArray[theWorker]);
     if((code = timeSeriesPerturb(p_assetRtn, p_bag, v, epsSd, orgProp)))
       goto BACK;

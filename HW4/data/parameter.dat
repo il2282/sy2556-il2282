@@ -1,5 +1,5 @@
 #assets: 1000
 #observations: 250
-epsilon_standard_deviation: 0.1
-original_data_proportion: 0.99
+epsilon_standard_deviation: 1
+original_data_proportion: 0.01
 tolerance: 0.9

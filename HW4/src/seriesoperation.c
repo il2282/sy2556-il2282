@@ -66,7 +66,7 @@ int timeSeriesPerturb(double *p_assetRtn, PowerBag* p_bag, double *v, double eps
   
 
   BACK:
-  	if(eps) free(eps);
+  	/*if(eps) free(eps);*/
     return retcode;
 
 }

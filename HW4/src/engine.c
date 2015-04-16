@@ -39,14 +39,14 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
   x = (double *)calloc(n, sizeof(double));
 
   for(j = 0; j < numassets; j++){
-    names[j] = (char *)calloc(3, sizeof(char));
+    names[j] = (char *)calloc(6, sizeof(char));
     if(names[j] == NULL){
       retcode = 1; goto BACK;
     }
     sprintf(names[j],"x%d", j);
   }
   for(j = numassets; j < n; j++){
-    names[j] = (char *)calloc(3, sizeof(char));
+    names[j] = (char *)calloc(6, sizeof(char));
     if(names[j] == NULL){
 		  retcode = 1; goto BACK;
     }
@@ -138,9 +138,7 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
   if (retcode) goto BACK;
 
   pthread_mutex_lock(output);
-  printf("123");
   retcode = GRBoptimize(model);
-  printf("456");
   pthread_mutex_unlock(output);
 
   if (retcode) goto BACK;
