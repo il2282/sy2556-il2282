@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "powerbag.h"
+
 
 int readAssetObsGetMean(char *p_obsFile, double **pp_assetRtn, double **pp_mean, int assetNum, int rtnNum);
 int meanAllocateSpace(double **pp_assetRtn, double **pp_mean, int assetNum, int rtnNum);

@@ -1,3 +1,4 @@
+#include "powerbag.h"
 #include "seriesoperation.h"
 #include "utilities.h"
 
@@ -98,9 +99,10 @@ int timeSeriesPerturb(double *p_assetRtn, PowerBag* p_bag, double *v, double eps
 
   var(p_bag->p_pertAssetRtn, p_bag->p_var, p_bag->p_mean, assetNum, rtnNum);
 
-  return retcode;
+  
 
   BACK:
+  	if(eps) free(eps);
     return retcode;
 
 }

@@ -175,9 +175,23 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
   GRBfreemodel(model);
   GRBfreeenv(env);
 
+  /*TODO: free names, x, qrow, qcol, qval, cind, c*/
+
+
 
 
  BACK:
+
+  if(x) free(x);
+  if(qrow) free(qrow);
+  if(qcol) free(qcol);
+  if(qval) free(qval);
+  if(cind) free(cind);
+  if(cval) free(cval);
+  for (j=0; j<numassets; j++){
+  	if (names[j]) free(names[j]);
+  }
+  if(names) free(names);
   printf("engine exits with code %d\n", retcode);
   return retcode;
 }

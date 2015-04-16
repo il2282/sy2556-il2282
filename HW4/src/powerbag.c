@@ -8,14 +8,14 @@
 int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eigval, double lambda, double *optimalArr, pthread_mutex_t* output);
 
 
-int PWRallocatespace(PowerBag* p_bag)
+int PWRallocatespace(PowerBag *p_bag)
 {
   int retcode = 0;
   double *v = NULL;
   int assetNum, rtnNum;
 
-  assetNum = p_bag->assetNum;
   rtnNum = p_bag->rtnNum;
+  assetNum = p_bag->assetNum;
 
   v = (double *)calloc(assetNum*rtnNum + 4*assetNum + 2*assetNum*assetNum, sizeof(double));
   if(!v){
@@ -34,6 +34,12 @@ int PWRallocatespace(PowerBag* p_bag)
   return retcode;
 }
 
+int PWRfreespace(PowerBag *p_bag)
+{
+	int retcode = 0;
+
+	return retcode;
+}
 void poweralgWrapper(PowerBag *p_bag, int itr)
 {
   poweralg(p_bag->assetNum, p_bag->p_var, p_bag->p_vector, (p_bag->p_eigval)+itr);

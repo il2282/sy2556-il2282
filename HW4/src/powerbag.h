@@ -1,6 +1,7 @@
 #ifndef POWERBAG
 
 #include "power.h"
+#include "utilities.h"
 
 #define POWERBAG
 
@@ -37,7 +38,8 @@ typedef struct PowerBag{
 }PowerBag;
 
 
-int PWRallocatespace(PowerBag* p_bag);
+int PWRallocatespace(PowerBag *p_bag);
+int PWRfreespace(PowerBag *p_bag);
 void poweralgWrapper(PowerBag *p_bag, int itr);
 void matrixSubtractionWrapper(PowerBag *p_bag, int itr);
 int engineWrapper(PowerBag *p_bag, int eigvalNum);

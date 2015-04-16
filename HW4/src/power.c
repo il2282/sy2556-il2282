@@ -67,6 +67,8 @@ void poweralg(int n, double *matrix, double *p_vector, double *p_val){
     poweriteration(n, p_vector, newvector, matrix, &error, p_val);
     if(error < tolerance) break;
   }
+
+  if(newvector) free(newvector);
 }
 
 

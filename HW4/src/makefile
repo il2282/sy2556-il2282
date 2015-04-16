@@ -8,7 +8,7 @@ gppdeb = g++ $(CCDEB)
 #CCC = $(gccopt)
 CCC = $(gccdeb)
 
-CFLAGS=
+#CFLAGS=
 LINUXLIBS= -lm -lpthread
 
 LIBS= $(LINUXLIBS) 
@@ -31,7 +31,7 @@ GRBLPINCDIR = $(GRB)/include
 CCCLNFLAGS = $(GRBLNFLAGS) $(LIBS)
 LPINCDIR = $(GRBLPINCDIR) #none for this project
 
-CCCFLAGS = -I$(LPINCDIR) 
+CCCFLAGS = -I$(LPINCDIR)
 
 ../bin/%.o: %.c
 	@echo compiling $*.c with $(CCC) $(CCCFLAGS)

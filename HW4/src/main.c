@@ -11,17 +11,16 @@ void workerOptimization(PowerBag *p_bag);
 
 int main(int argc, char *argv[])
 {
-  int code = 0, j, initialRuns, activeWorkers, scheduledJobs, assetIndex, assetNum, rtnNum;
+  int code = 0, initialRuns, activeWorkers, scheduledJobs, assetIndex, assetNum, rtnNum;
   int quantity = 1, workersNum = 1;
-  double *p_assetRtn = NULL, *p_mean = NULL, epsSd, *v = NULL, orgProp;
-  double *p_fakeRtn = NULL;
+  double *p_assetRtn = NULL, *p_fakeRtn = NULL, *p_mean = NULL, epsSd, *v = NULL, orgProp;
   double lambda, tolerance;
-  PowerBag **pp_bag = NULL, *p_bag = NULL;
-  int theWorker;
+  int j, theWorker;
   char gotone;
   FILE *input;
   char buffer[100];
-
+  
+  PowerBag **pp_bag = NULL, *p_bag = NULL;
   pthread_t *p_threadArray;
   pthread_mutex_t output;
   pthread_mutex_t *p_synchroArray;
@@ -72,6 +71,7 @@ int main(int argc, char *argv[])
   printf("\n%d workers will work on %d jobs.\n", workersNum, quantity);
 
   /* read data and obtain average return of assets */
+  
   code = readAssetObsGetMean(argv[1], &p_assetRtn, &p_mean, assetNum, rtnNum);
   if(code) goto BACK;
 
@@ -151,10 +151,11 @@ int main(int argc, char *argv[])
   for(theWorker = 0; theWorker < initialRuns; theWorker++){
     p_bag = pp_bag[theWorker];
 
-    pthread_mutex_lock(&output);
+    /* TODO: at least not &output ... synchArray?*/
+    pthread_mutex_lock(&p_synchroArray[theWorker]);
     if((code = timeSeriesPerturb(p_assetRtn, p_bag, v, epsSd, orgProp)))
       goto BACK;
-    pthread_mutex_unlock(&output);
+    pthread_mutex_unlock(&p_synchroArray[theWorker]);
 
     pthread_mutex_lock(&output);
     printf("\n*****master:  worker %d will run experiment %d\n", theWorker, theWorker);
@@ -182,7 +183,9 @@ int main(int argc, char *argv[])
       	pthread_mutex_lock(&output);
       	printf("\nmaster:  worker %d is done with job %d\n\nOptimal variables:\n", p_bag->ID, p_bag->jobNumber);
         for (assetIndex = 0; assetIndex < assetNum; assetIndex++){
-          if (p_bag->p_optimal[assetIndex] > 0.0001) printf("x%d = %.9e\n", assetIndex, p_bag->p_optimal[assetIndex]);
+          if (p_bag->p_optimal[assetIndex] > 0.0001){
+          	printf("x%d = %.9e\n", assetIndex, p_bag->p_optimal[assetIndex]);
+          }
         }
       	pthread_mutex_unlock(&output);
 
@@ -215,9 +218,13 @@ int main(int argc, char *argv[])
     if(gotone){
     /** if we are here, "theWorker" can work **/
       p_bag = pp_bag[theWorker];
+      /*TODO: added mutex*/
+      pthread_mutex_lock(&p_synchroArray[theWorker]);
       if((code = timeSeriesPerturb(p_assetRtn, p_bag, v, epsSd, orgProp)))
         goto BACK;
+      pthread_mutex_unlock(&p_synchroArray[theWorker]);
 
+      
       pthread_mutex_lock(&output);
       printf("\nmaster: worker %d will run experiment %d\n", theWorker, scheduledJobs);
       pthread_mutex_unlock(&output);
@@ -234,19 +241,25 @@ int main(int argc, char *argv[])
   }
 
 
-
-  /*  pthread_mutex_lock(&p_synchroArray[theWorker]);
-  p_bag->command = QUIT;
-  pthread_mutex_unlock(&p_synchroArray[theWorker]);*/
-
-
-      
-  /*PWRfreespace(&p_bag);*/
-
+  
+  
 	 
 BACK:
-  /*if(matcopy) free(matcopy);
-  if(scratch) free(scratch);*/
+  if(p_assetRtn) free(p_assetRtn);
+  if(p_fakeRtn) free(p_fakeRtn);
+  if(v) free(v);
+
+  for(theWorker = 0; theWorker < workersNum; theWorker++){
+  	if (pp_bag[theWorker]){
+  		PWRfreespace(pp_bag[theWorker]);
+  		
+  		/*TODO: deal with freeing*/
+  	}
+  }
+  if(pp_bag) free(pp_bag);
+  if(p_threadArray) free(p_threadArray);
+  if(p_synchroArray) free(p_synchroArray);
+  
   return code;
 }
 
