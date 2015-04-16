@@ -37,12 +37,12 @@ int PWRallocatespace(PowerBag *p_bag)
 void PWRfreespace(PowerBag *p_bag)
 {
   if(p_bag->p_pertAssetRtn) free(p_bag->p_pertAssetRtn);
-  if(p_bag->p_mean) free(p_bag->p_mean);
+  /*if(p_bag->p_mean) free(p_bag->p_mean);
   if(p_bag->p_var) free(p_bag->p_var);
   if(p_bag->p_eigval) free(p_bag->p_eigval);
   if(p_bag->p_eigvec) free(p_bag->p_eigvec);
   if(p_bag->p_vector) free(p_bag->p_vector);
-  if(p_bag->p_optimal) free(p_bag->p_optimal);
+  if(p_bag->p_optimal) free(p_bag->p_optimal);*/
 }
 void poweralgWrapper(PowerBag *p_bag, int itr)
 {

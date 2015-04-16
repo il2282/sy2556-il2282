@@ -253,8 +253,8 @@ BACK:
 
   for(theWorker = 0; theWorker < workersNum; theWorker++){
   	if (pp_bag[theWorker]){
-  		pthread_create(&p_threadArray[j], NULL, &workerWrapper, (void *) p_bag)
-  		/*PWRfreespace(pp_bag[theWorker]); TODO: each worker free space...*/
+  		pthread_join(p_threadArray[theWorker], NULL);
+  		PWRfreespace(pp_bag[theWorker]);
   		if (pp_bag[theWorker]) free(pp_bag[theWorker]);
   	}
   }

@@ -184,7 +184,7 @@ int engine(int numassets, int numeigval, double *mu, double *eigvec, double *eig
   if(qval) free(qval);
   if(cind) free(cind);
   if(cval) free(cval);
-  for (j=0; j<numassets; j++){
+  for (j=0; j<n; j++){
   	if (names[j]) free(names[j]);
   }
   if(names) free(names);
