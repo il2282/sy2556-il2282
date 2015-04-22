@@ -1,0 +1,5 @@
+TimeLimit 500
+NodeLimit 1000
+MIPGap 0.01
+
+END

@@ -1,0 +1,33 @@
+Minimize
+  - 0.0233 x0 - 0.422 x1 - 0.1904 x2 - 0.1411 x3 - 0.045 x4 - 0.271 x5
+   - 0.55 x6 + 0 F1 + [ 60 x0 ^ 2 + 60 x1 ^ 2 + 60 x2 ^ 2 + 80 x3 ^ 2
+   + 100 x4 ^ 2 + 120 x5 ^ 2 + 140 x6 ^ 2 + 200 F0 ^ 2 + 0.4 F0 * F1
+   + 400 F1 ^ 2 ] / 2 
+Subject To
+ first_constraint: 1.508 x0 + 0.7802 x1 + 1.8796 x2 + 4.256 x3 + 1.335 x4
+   + 2.026 x5 + 1.909 x6 - F0 = 0
+ second_constraint: 4.228 x0 + 1.2945 x1 + 0.827 x2 + 2.149 x3 + 2.353 x4
+   + 0.3026 x5 + 1.487 x6 - F0 = 0
+ convexity: x0 + x1 + x2 + x3 + x4 + x5 + x6 = 1
+
+ y0 + y1 + y2 + y3 + y4 + y5 + y6 <= 3
+ control0: x0 - y0 <= 0
+ control1: x1 - y1 <= 0
+ control2: x2 - y2 <= 0
+ control3: x3 - y3 <= 0
+ control4: x4 - y4 <= 0
+ control5: x5 - y5 <= 0
+ control6: x6 - y6 <= 0
+Bounds
+ x0 <= 0.9
+ x1 <= 0.3
+ x2 <= 0.8
+ x3 <= 0.9
+ x4 <= 0.8
+ x5 <= 0.6
+ x6 <= 0.99
+ -100 <= F0 <= 100
+ -100 <= F1 <= 100
+Binaries
+ y0 y1 y2 y3 y4 y5 y6
+End

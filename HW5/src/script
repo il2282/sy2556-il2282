@@ -1,0 +1,10 @@
+1. modelenv, reduce output -> v10 http://www.gurobi.com/documentation/6.0/refman/c_grbsetintparam.html
+
+
+2.  branch-and-bound
+
+3.  v11 does time limit, node limit, mip gap
+
+4.  v12 read gurobi params from file
+
+5.  heuristics?
