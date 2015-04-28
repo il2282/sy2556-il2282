@@ -1,0 +1,5 @@
+constr ../runs/constraint.txt
+ruleone ../runs/ruleone.txt
+ruletwo ../runs/ruletwo.txt
+
+END

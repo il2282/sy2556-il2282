@@ -1,0 +1,105 @@
+int retcode = 0;
+	FILE *datafile;
+	char buffer[100];
+	int numcols = 0;
+	double *mu = NULL, *ub = NULL, *lb = NULL, *sigma2 = NULL, *V = NULL, *F = NULL;
+	int i, j;
+
+	datafile = fopen(filename, "r");
+	if (!datafile){
+		printf("readdata:: cannot read file %s\n", filename);
+		retcode = FILEERROR; goto BACK;
+	}
+
+	/* read numassets */
+	fscanf(datafile, "%s", buffer);
+	printf("readdata:: -> %s\n", buffer);
+	fscanf(datafile, "%s", buffer);
+	numassets = atoi(buffer);
+	printf("readdata:: %d assets\n", numassets);
+
+	/* read numfactors */
+	fscanf(datafile, "%s", buffer);
+	printf("readdata:: -> %s\n", buffer);
+	fscanf(datafile, "%s", buffer);
+	numfactors = atoi(buffer);
+	printf("readdata:: %d factors\n", numfactors);
+
+	/* assets + binary variables + delta variables + factor variables TODO:*/
+	numcols = 4*numassets + numfactors;
+
+	/* memory allocations */
+	mu = (double *)calloc(4*numcols, sizeof(double));
+	if (mu == NULL){
+		retcode = MEMORYERROR; goto BACK;
+	}
+	sigma2 = lb + numcols;
+	ub = mu + numcols;
+	lb = ub + numcols;
+	
+	V = (double *)calloc(2*numassets*numfactors, sizeof(double));
+	if (V == NULL){
+		retcode = MEMORYERROR; goto BACK;
+	}
+	F = V + numassets*numfactors;
+
+
+	/* read serial data */
+	fscanf(datafile, "%s", buffer);
+	printf("readdata:: -> %s\n", buffer);
+	for (j = 0; j < numassets; j++){
+		fscanf(datafile, "%s", buffer);
+		mu[j] = atof(buffer);
+	}
+
+	fscanf(datafile, "%s", buffer);
+	printf("readdata:: -> %s\n", buffer);
+	for (j = 0; j < numassets; j++){
+		fscanf(datafile, "%s", buffer);
+		ub[j] = atof(buffer);
+		lb[j] = -ub[j];
+	}
+
+	fscanf(datafile, "%s", buffer);
+	printf("readdata:: -> %s\n", buffer);
+	for (j = 0; j < numassets; j++){
+		fscanf(datafile, "%s", buffer);
+		sigma2[j] = atof(buffer);
+	}
+
+	fscanf(datafile, "%s", buffer);
+	printf("readdata:: -> %s\n", buffer);
+	for (j = 0; j < numassets; j++)for(i = 0; i < numfactors; i++){
+		fscanf(datafile, "%s", buffer);
+		V[i*numassets+j] = atof(buffer);
+	}
+
+	fscanf(datafile, "%s", buffer);
+	printf("readdata:: -> %s\n", buffer);
+	for (j = 0; j < numassets; j++)for(i = 0; i < numfactors; i++){
+		fscanf(datafile, "%s", buffer);
+		F[i*numassets+j] = atof(buffer);
+	}
+
+	fscanf(datafile, "%s", buffer);
+	if (0 != strcmp(buffer, "END")){
+		print("readdata:: --> no END\n");
+		retcode = FORMATERROR; goto BACK;
+	}
+
+	if (datafile) fclose(datafile);
+
+
+	/* ub/lb for factor variables TODO: */
+	for (i = 0; i < numfactors; i++){
+		ub[numassets+i] = 100000.0;
+		lb[numassets+i] = -100000.0;
+	}
+
+	*p_numassets = numassets;
+	*p_numfactors = numfactors
+	*p_mu = mu; *p_ub = ub; *p_lb = lb; *p_sigma2 = sigma2; 
+	*p_V = V; *p_F = F;
+
+BACK:
+	return retcode;*/
