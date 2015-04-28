@@ -46,7 +46,7 @@ void getstatisticsWrapper(PowerBag *p_bag){
 }
 void poweralgWrapper(PowerBag *p_bag, int itr)
 {
-  poweralg(p_bag->numassets, p_bag->cov, p_bag->tmpvec, (p_bag->eigval)+itr);
+  poweralg(p_bag->numassets, p_bag->cov, p_bag->tmpvec, (p_bag->eigval)+itr, p_bag->tolerance);
 }
 
 void matrixSubtractionWrapper(PowerBag *p_bag, int itr)

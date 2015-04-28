@@ -48,9 +48,9 @@ void compute_error(int n, double *p_error, double *newvector, double *vector)
 
 }
 
-void poweralg(int n, double *matrix, double *p_vector, double *p_val){
+void poweralg(int n, double *matrix, double *p_vector, double *p_val, double tolerance){
   
-  double error = 1, tolerance;
+  double error;
   double *newvector;
   int i;
   
@@ -59,7 +59,6 @@ void poweralg(int n, double *matrix, double *p_vector, double *p_val){
   }
 
   newvector = (double *)calloc(n, sizeof(double));
-  tolerance = .000001/n;
 
   for(;;){
     poweriteration(n, p_vector, newvector, matrix, &error, p_val);

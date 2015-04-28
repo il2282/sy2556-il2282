@@ -7,11 +7,11 @@
 void workerOptimization(PowerBag *p_bag)
 {
   int itr, ID, letsgo, waitcount, i;
-  double tolerance;
+  double threshold;
 
 
   ID = p_bag->ID;
-  tolerance = p_bag->tolerance;
+  threshold = p_bag->threshold;
 
   pthread_mutex_lock(p_bag->output);
   printf("\nID %d: ID %d starts\n", ID, ID);
@@ -63,9 +63,9 @@ void workerOptimization(PowerBag *p_bag)
         p_bag->eigvec[itr*p_bag->numassets+i] = p_bag->tmpvec[i]; 
       }
 
-      if((p_bag->eigval)[itr]/(p_bag->eigval)[0] < tolerance){
+      if((p_bag->eigval)[itr]/(p_bag->eigval)[0] < threshold){
         pthread_mutex_lock(p_bag->output);
-        printf("\nID %d converged to tolerance %g! on job %d\n", ID, tolerance, p_bag->jobnumber); 
+        printf("\nID %d converged to threshold %g! on job %d\n", ID, threshold, p_bag->jobnumber); 
         pthread_mutex_unlock(p_bag->output);
         break;
       }
